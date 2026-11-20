@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f8f5">
+<meta name="description" content="Yuurei Labs — connect, understand, and orchestrate your world of things.">
+<title>Yuurei Labs — Intelligence for the Connected World</title>
+<style>
+  :root {
+    --paper: #f7f8f5;
+    --ink: #17231f;
+    --muted: #68736d;
+    --green: #286b55;
+    --mint: #dcebe3;
+    --line: rgba(23,35,31,.12);
+    --night: #080b0a;
+    --blood: #9d2525;
+    --progress: 0;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--paper); }
+  body {
+    margin: 0; color: var(--ink); background: var(--paper);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    overflow-x: hidden; transition: background 1.2s ease, color 1.2s ease;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; }
+  .grain {
+    pointer-events: none; position: fixed; inset: -50%; z-index: 30; opacity: .035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+    animation: grain .22s steps(2) infinite;
+  }
+  @keyframes grain { 0%{transform:translate(0,0)} 25%{transform:translate(2%,-1%)} 50%{transform:translate(-1%,2%)} 75%{transform:translate(1%,1%)} }
+  .topbar {
+    height: 76px; display:flex; align-items:center; justify-content:space-between;
+    padding: 0 clamp(22px, 6vw, 92px); border-bottom:1px solid var(--line);
+    position:absolute; top:0; left:0; right:0; z-index:10;
+  }
+  .brand { display:flex; align-items:center; gap:10px; font-size:17px; font-weight:750; letter-spacing:-.05em; }
+  .brand-mark { width:25px; height:25px; border-radius:8px 8px 8px 2px; background:var(--green); display:inline-block; transform:rotate(-8deg); }
+  nav { display:flex; gap:34px; align-items:center; color:#4d5b54; font-size:12px; font-weight:650; }
+  .nav-cta { padding:12px 18px; border-radius:999px; background:var(--ink); color:white; }
+  .hero {
+    min-height: 790px; padding: 180px 24px 110px; display:grid; place-items:center; text-align:center;
+    background: radial-gradient(ellipse at 50% 72%, #e5f0e9 0, transparent 48%), var(--paper);
+    position:relative; overflow:hidden;
+  }
+  .eyebrow { font-size:10px; text-transform:uppercase; letter-spacing:.2em; font-weight:800; color:var(--green); }
+  h1 { max-width:920px; font-size:clamp(54px, 9vw, 112px); letter-spacing:-.085em; line-height:.94; margin:26px auto 24px; font-weight:650; }
+  .hero p { color:var(--muted); font-size:clamp(15px, 1.5vw, 18px); line-height:1.7; max-width:510px; margin:0 auto 32px; }
+  .primary {
+    display:inline-flex; gap:12px; align-items:center; background:var(--green); color:white;
+    border-radius:999px; padding:15px 22px; font-size:13px; font-weight:700; box-shadow:0 12px 30px #286b5526;
+  }
+  .hero-note { position:absolute; bottom:30px; color:#9aa39d; font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
+  .orb { position:absolute; border:1px solid #286b5518; border-radius:50%; width:420px; height:420px; left:-220px; top:250px; }
+  .orb:after { content:""; position:absolute; inset:45px; border:1px solid #286b5518; border-radius:50%; }
+  .section { padding:120px clamp(24px, 10vw, 150px); }
+  .section-head { max-width:700px; margin-bottom:60px; }
+  .section h2 { font-size:clamp(38px, 5vw, 66px); line-height:1; letter-spacing:-.07em; font-weight:620; margin:18px 0; }
+  .section-intro { color:var(--muted); line-height:1.8; max-width:540px; }
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .card { background:white; border:1px solid var(--line); border-radius:18px; padding:30px; min-height:245px; }
+  .card-icon { width:40px; height:40px; border-radius:13px; background:var(--mint); display:grid; place-items:center; color:var(--green); font-size:18px; margin-bottom:34px; }
+  .card h3 { font-size:18px; letter-spacing:-.04em; margin:0 0 10px; }
+  .card p { color:var(--muted); line-height:1.7; font-size:13px; margin:0; }
+  .quote-band { background:#eaf1ec; text-align:center; padding:110px 24px; }
+  .quote-band blockquote { max-width:820px; margin:0 auto; font-size:clamp(30px,4.7vw,58px); line-height:1.12; letter-spacing:-.065em; }
+  .quote-band small { display:block; margin-top:25px; color:var(--muted); font-size:11px; letter-spacing:.12em; text-transform:uppercase; }
+  .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:30px; margin-top:60px; }
+  .stat strong { display:block; font-size:clamp(36px,5vw,58px); letter-spacing:-.07em; font-weight:620; }
+  .stat span { color:var(--muted); font-size:12px; }
+  .testimonial { display:grid; grid-template-columns:1fr 1.2fr; gap:60px; align-items:center; }
+  .portrait {
+    height:380px; border-radius:20px; overflow:hidden; position:relative;
+    background:linear-gradient(145deg,#c8d7ce,#81988c 55%,#455a50);
+  }
+  .portrait:before { content:""; position:absolute; width:155px; height:190px; border-radius:48% 48% 42% 42%; background:#d2b9a4; left:calc(50% - 77px); top:78px; box-shadow:0 130px 0 45px #273b34; }
+  .portrait:after { content:""; position:absolute; width:190px; height:90px; border-radius:50%; background:#28342f; left:calc(50% - 95px); top:52px; }
+  .quote { font-size:clamp(24px,3vw,38px); line-height:1.25; letter-spacing:-.055em; }
+  .quote-by { margin-top:28px; color:var(--muted); font-size:12px; }
+  .pricing { background:#f0f3ef; }
+  .price-card { max-width:520px; margin:auto; padding:42px; background:white; border:1px solid var(--line); border-radius:22px; }
+  .price { font-size:55px; letter-spacing:-.08em; margin:20px 0 5px; }
+  .price-card p, .price-card li { color:var(--muted); font-size:13px; line-height:1.8; }
+  .price-card ul { padding-left:18px; margin:25px 0; }
+  footer { padding:45px clamp(24px, 6vw, 92px); display:flex; justify-content:space-between; color:#89928c; font-size:11px; border-top:1px solid var(--line); }
+  .normal-only { transition:opacity .8s ease, filter .8s ease; }
+  .crack { opacity:0; max-height:0; overflow:hidden; transition:opacity 1.5s ease, max-height 2s ease; }
+  .unease .crack { opacity:1; max-height:1000px; }
+  .crack-section {
+    background:#dfe3dd; color:#3c4740; text-align:center; padding:130px 24px;
+    position:relative; overflow:hidden;
+  }
+  .crack-section h2 { font-size:clamp(38px,7vw,82px); letter-spacing:-.08em; line-height:.98; font-weight:550; max-width:900px; margin:22px auto; }
+  .crack-section p { max-width:510px; margin:24px auto; color:#68736d; line-height:1.8; font-size:14px; }
+  .wrong-word { display:inline-block; color:#68736d; transition:all .5s; }
+  .unease .wrong-word { color:#4b514d; }
+  .duplicate { opacity:.45; margin-top:12px !important; }
+  .photo-grid { display:grid; grid-template-columns:1fr 1fr; gap:15px; max-width:850px; margin:55px auto 0; }
+  .fake-photo { min-height:220px; border-radius:12px; background:linear-gradient(135deg,#b7c4ba,#7d8a80); position:relative; overflow:hidden; filter:saturate(.55); }
+  .fake-photo:nth-child(2) { background:linear-gradient(135deg,#b9bdb1,#737e72); }
+  .fake-photo:before { content:""; position:absolute; inset:20% 32%; background:#d0c7b8; border-radius:50% 50% 10% 10%; opacity:.5; }
+  .fake-photo:after { content:""; position:absolute; inset:0; background:linear-gradient(90deg,transparent 49.7%,#17231f12 50%,transparent 50.3%); }
+  .face-shadow { position:absolute; width:38px; height:60px; border-radius:50%; background:#1b201d; left:50%; top:38%; opacity:0; filter:blur(8px); transition:opacity 1.4s; }
+  .unease .face-shadow { opacity:.65; }
+  .small-print { font-size:10px !important; letter-spacing:.12em; text-transform:uppercase; }
+  .glitch-line { height:1px; width:100%; background:#7f8980; margin:45px 0; opacity:.3; }
+  .dark-descent {
+    background:#111715; color:#c7cec8; padding:150px 24px; text-align:center; position:relative;
+    transition:background 2s ease;
+  }
+  .dark-descent .eyebrow { color:#82988a; }
+  .dark-descent h2 { max-width:900px; margin:25px auto; font-size:clamp(44px,8vw,100px); letter-spacing:-.085em; line-height:.93; font-weight:500; }
+  .dark-descent p { color:#87918a; max-width:500px; line-height:1.9; margin:25px auto; font-size:14px; }
+  .dark-descent .subtle { color:#657069; font-size:11px; letter-spacing:.18em; text-transform:uppercase; margin-top:90px; }
+  .scan { width:min(700px,90vw); height:240px; margin:65px auto 0; border:1px solid #ffffff18; background:repeating-linear-gradient(0deg,#ffffff08 0px,#ffffff08 1px,transparent 2px,transparent 5px),radial-gradient(ellipse,#28332d,#0b100e 70%); position:relative; overflow:hidden; }
+  .scan:before { content:""; position:absolute; left:50%; top:50%; width:120px; height:165px; transform:translate(-50%,-42%); border-radius:48% 48% 42% 42%; background:radial-gradient(ellipse at 50% 35%,#090b0a 0 28%,transparent 30%),linear-gradient(#1d2520,#080b0a); filter:blur(1px); opacity:.7; }
+  .scan:after { content:""; position:absolute; inset:0; background:linear-gradient(transparent 45%,#a7c3ae33 50%,transparent 55%); animation:sweep 4s linear infinite; }
+  @keyframes sweep { from{transform:translateY(-100%)} to{transform:translateY(100%)} }
+  .terminal { max-width:620px; margin:55px auto 0; text-align:left; font:12px/2 ui-monospace,SFMono-Regular,Menlo,monospace; color:#78877d; }
+  .terminal .red { color:#a84b4b; }
+  .final {
+    min-height:100vh; background:#030404; color:#d5d0ca; display:grid; place-items:center; text-align:center;
+    padding:100px 24px; position:relative; overflow:hidden;
+  }
+  .final:before { content:""; position:absolute; inset:0; opacity:.15; background:repeating-linear-gradient(0deg,transparent 0 3px,#fff 4px,transparent 5px); pointer-events:none; }
+  .final-inner { max-width:850px; position:relative; z-index:1; }
+  .final .eyebrow { color:#733d3d; }
+  .final h2 { font-family:Georgia,serif; font-weight:400; font-size:clamp(42px,8vw,96px); letter-spacing:-.06em; line-height:1.02; margin:30px auto; }
+  .final p { color:#77716c; font:13px/2 ui-monospace,monospace; max-width:470px; margin:30px auto; }
+  .final .last-line { color:#b7aaa0; font:clamp(16px,2vw,20px)/1.6 Georgia,serif; margin-top:90px; }
+  .redacted { color:#9b3d3d; letter-spacing:.22em; font-size:10px; }
+  .reset { margin-top:45px; color:#504a46; border:1px solid #383330; padding:12px 18px; border-radius:99px; background:transparent; cursor:pointer; font-size:11px; }
+  .reset:hover { color:#ddd; border-color:#8a7770; }
+  .cursor-message { position:fixed; bottom:18px; right:20px; z-index:40; color:#6d746e; font:9px ui-monospace,monospace; opacity:0; transition:opacity 1s; pointer-events:none; }
+  body.deep .cursor-message { opacity:.55; }
+  body.deep { background:#080b0a; color:#c7cec8; }
+  body.deep .topbar { border-color:#ffffff18; background:#080b0add; }
+  body.deep .brand-mark { background:#6c3939; }
+  body.deep nav { color:#7c8980; }
+  body.deep .nav-cta { background:#4d2929; }
+  body.deep .grain { opacity:.09; }
+  body.deep .normal-only { opacity:.28; filter:grayscale(1); }
+  body.deep .crack-section { background:#171d19; color:#aeb7ae; }
+  body.deep .crack-section p { color:#727e75; }
+  body.deep .crack-section .eyebrow { color:#75877a; }
+  body.deep .quote-band, body.deep .pricing { background:#101613; }
+  body.deep .card, body.deep .price-card { background:#151c18; border-color:#ffffff18; }
+  body.deep .card p, body.deep .price-card p, body.deep .price-card li { color:#849087; }
+  body.deep .card-icon { background:#26362c; color:#a5b8a8; }
+  body.deep footer { border-color:#ffffff18; }
+  body.deep .stat span, body.deep .quote-by { color:#849087; }
+  body.deep .portrait { filter:grayscale(1) brightness(.45); }
+  body.deep .quote-band { color:#aeb7ae; }
+  body.deep .quote-band small { color:#758078; }
+  body.deep .section-intro, body.deep .section-head .eyebrow { color:#7f8b82; }
+  body.deep .price { color:#c4ccc5; }
+  body.deep .orb { opacity:.1; }
+  body.deep .hero { background:radial-gradient(ellipse at 50% 72%,#18231d 0,transparent 48%),#080b0a; }
+  body.deep .hero p, body.deep .hero-note { color:#68736b; }
+  body.deep .hero .eyebrow { color:#8ca18f; }
+  body.deep .hero .primary { background:#34483a; }
+  body.deep .section { background:#0c110e; }
+  body.deep .quote-band { background:#121915; }
+  body.deep .stats strong { color:#c3cbc4; }
+  body.deep .crack-section { background:#111713; }
+  body.deep .fake-photo { filter:grayscale(1) brightness(.38); }
+  body.deep .face-shadow { opacity:1; filter:blur(1px); }
+  body.deep .crack-section h2 { color:#b4bcb4; }
+  body.deep .dark-descent { background:#050706; }
+  body.deep .topbar .nav-cta { color:#d6d0ca; }
+  .flicker { animation:flicker 5s infinite; }
+  @keyframes flicker { 0%,96%,98%,100%{opacity:1} 97%{opacity:.25} 99%{opacity:.65} }
+  .shake { animation:shake .18s steps(2) 2; }
+  @keyframes shake { 0%{transform:translate(0)} 25%{transform:translate(2px,-1px)} 50%{transform:translate(-2px,1px)} 75%{transform:translate(1px,2px)} }
+  @media (max-width:700px) {
+    .topbar { height:66px; } nav { gap:14px; } nav a:not(.nav-cta) { display:none; }
+    .hero { min-height:720px; } .section { padding:90px 24px; }
+    .cards, .stats { grid-template-columns:1fr; }
+    .testimonial { grid-template-columns:1fr; gap:30px; }
+    .portrait { height:300px; }
+    .photo-grid { grid-template-columns:1fr; }
+    footer { gap:18px; flex-direction:column; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *:before, *:after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="Yuurei Labs home"><span class="brand-mark"></span> yuurei labs</a>
+  <nav aria-label="Main navigation">
+    <a href="#approach">Platform</a><a href="#stories">Use cases</a><a href="#plans">Pricing</a>
+    <a class="nav-cta" href="#plans">View platform</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero normal-only">
+    <div class="orb" aria-hidden="true"></div>
+    <div>
+      <div class="eyebrow">THE CONNECTED WORLD, MADE INTELLIGENT</div>
+      <h1>Your world.<br>In sync.</h1>
+      <p>One platform to connect your devices, understand your environment, and build smarter experiences — from the edge to the cloud.</p>
+      <a class="primary" href="#approach">Explore the platform <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="hero-note">One platform · Every connection &nbsp; · &nbsp; Scroll to explore</div>
+  </section>
+
+  <section class="section normal-only" id="approach">
+    <div class="section-head">
+      <div class="eyebrow">THE YUUREI PLATFORM</div>
+      <h2>Every device.<br>One intelligence.</h2>
+      <p class="section-intro">Bring your IoT ecosystem together with secure connectivity, real-time telemetry, and automation designed to scale with your ideas.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><div class="card-icon">✳</div><h3>Connect anything</h3><p>Bring sensors, gateways, and smart devices into one unified device layer.</p></article>
+      <article class="card"><div class="card-icon">◒</div><h3>Understand in real time</h3><p>Turn live telemetry into clear dashboards, useful alerts, and actionable insight.</p></article>
+      <article class="card"><div class="card-icon">⌁</div><h3>Automate with confidence</h3><p>Create workflows that let devices and services respond intelligently to your world.</p></article>
+    </div>
+  </section>
+
+  <section class="quote-band normal-only">
+    <blockquote>“A smarter world starts with understanding what is happening in it.”</blockquote>
+    <small>— The Yuurei Labs philosophy</small>
+    <div class="stats">
+      <div class="stat"><strong>10k+</strong><span>connected devices</span></div>
+      <div class="stat"><strong>99.9%</strong><span>uptime visibility</span></div>
+      <div class="stat"><strong>1 API</strong><span>one unified platform</span></div>
+    </div>
+  </section>
+
+  <section class="section normal-only" id="stories">
+    <div class="testimonial">
+      <div class="portrait" role="img" aria-label="Abstract portrait illustration"><span class="face-shadow"></span></div>
+      <div>
+        <div class="eyebrow">BUILT FOR THE REAL WORLD</div>
+        <p class="quote">“We finally have one place to see every device, every signal, and every system that keeps our facility running.”</p>
+        <div class="quote-by">YUUREI CUSTOMER &nbsp; · &nbsp; CONNECTED SINCE 2024</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section pricing normal-only" id="plans">
+    <div class="section-head" style="text-align:center;margin:0 auto 45px">
+      <div class="eyebrow">SIMPLE, TRANSPARENT PRICING</div>
+      <h2>Build what comes next.</h2>
+      <p class="section-intro" style="margin:auto">Start with the devices you have. Scale into the connected systems you imagine.</p>
+    </div>
+    <div class="price-card">
+      <div class="eyebrow">Yuurei Labs Plus</div>
+      <div class="price">$8<span style="font-size:16px;letter-spacing:0"> / month</span></div>
+      <p>The tools to monitor, manage, and orchestrate your IoT deployments.</p>
+      <ul><li>Unified device management</li><li>Live telemetry and dashboards</li><li>Rules, alerts, and automations</li><li>Secure API integrations</li></ul>
+      <a class="primary" href="#begin">Get started <span>→</span></a>
+    </div>
+  </section>
+
+  <section class="crack crack-section">
+    <div class="eyebrow">A NOTE FROM PLATFORM OPERATIONS</div>
+    <h2>Your devices are still here<span class="wrong-word">.</span></h2>
+    <p>Most devices disconnect eventually. That's expected. Yours haven't.</p>
+    <p class="duplicate">Most devices disconnect eventually. That's expected. Yours haven't.</p>
+    <div class="glitch-line"></div>
+    <p class="small-print">Your experience is important to us. Your experience is important to us. Your experience is important to us.</p>
+    <div class="photo-grid">
+      <div class="fake-photo"><span class="face-shadow"></span></div>
+      <div class="fake-photo"><span class="face-shadow"></span></div>
+    </div>
+    <p>Our monitoring service noticed you inspecting the device snapshots.</p>
+  </section>
+
+  <section class="crack crack-section" style="background:#d4d9d2">
+    <div class="eyebrow">SYSTEM HEALTH NOTICE</div>
+    <h2>There is nothing unusual about your network.</h2>
+    <p>We only process telemetry explicitly sent to the platform.</p>
+    <p class="duplicate">We only process telemetry explicitly sent to the platform.</p>
+    <p>We know which devices are still reporting.</p>
+    <p class="small-print">You can disconnect any device whenever you like.</p>
+  </section>
+
+  <section class="dark-descent crack">
+    <div class="eyebrow">Yuurei Labs · Device presence monitoring</div>
+    <h2 class="flicker">Everything is<br>connected.</h2>
+    <p>No need to worry about the unregistered device. It is probably just a stale network entry.</p>
+    <div class="scan" aria-label="Abstract dark surveillance scan"></div>
+    <div class="terminal">
+      <div>PLATFORM STATUS: <span>ACTIVE</span></div>
+      <div>ACCOUNT: <span>AUTHORIZED OPERATOR</span></div>
+      <div>EDGE NODE: <span>NOT REGISTERED</span></div>
+      <div>ACTIVE NODES: <span class="red">2</span></div>
+      <div>UNKNOWN DEVICE: <span class="red">CONNECTED</span></div>
+      <div class="red">DO NOT REVOKE ITS ACCESS.</div>
+    </div>
+    <div class="subtle flicker">All devices are operating normally</div>
+  </section>
+
+  <section class="final crack" id="begin">
+    <div class="final-inner">
+      <div class="eyebrow redacted">EVERWELL INTERNAL · DOCUMENT 0041</div>
+      <h2>We built this<br>for your devices.</h2>
+      <p>At first, it was only one device. Then another. Then a device with no manufacturer, no serial number, and no provisioning record.</p>
+      <p class="redacted">SESSION CANNOT BE ENDED FROM THIS PAGE</p>
+      <div class="last-line">Thank you for keeping the connection alive.<br>It gets lonely when the network goes quiet.</div>
+      <button class="reset" id="reset" type="button">Return to dashboard</button>
+    </div>
+  </section>
+</main>
+
+<div class="cursor-message" id="cursorMessage" aria-live="polite">WE CAN SEE YOUR DEVICES</div>
+<script>
+(() => {
+  const body = document.body;
+  const cracks = [...document.querySelectorAll('.crack')];
+  const reset = document.getElementById('reset');
+  const cursorMessage = document.getElementById('cursorMessage');
+  let deep = false;
+  let lastMessage = 0;
+
+  const update = () => {
+    const max = document.documentElement.scrollHeight - innerHeight;
+    const progress = max > 0 ? scrollY / max : 0;
+    body.classList.toggle('unease', progress > 0.34);
+    const nextDeep = progress > 0.57;
+    if (nextDeep !== deep) {
+      deep = nextDeep;
+      body.classList.toggle('deep', deep);
+    }
+    if (progress > 0.78 && Math.random() > 0.992) {
+      body.classList.add('shake');
+      setTimeout(() => body.classList.remove('shake'), 400);
+    }
+  };
+
+  addEventListener('scroll', update, { passive: true });
+  addEventListener('resize', update);
+  update();
+
+  // The unsettling copy is decorative fiction; no camera, microphone, or tracking is used.
+  addEventListener('mousemove', () => {
+    if (scrollY > document.documentElement.scrollHeight * 0.55 && Date.now() - lastMessage > 12000) {
+      lastMessage = Date.now();
+      cursorMessage.textContent = Math.random() > .5 ? 'DEVICE STILL REPORTING' : 'UNKNOWN NODE ONLINE';
+    }
+  }, { passive: true });
+
+  reset.addEventListener('click', () => {
+    body.classList.remove('deep', 'unease', 'shake');
+    deep = false;
+    scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
