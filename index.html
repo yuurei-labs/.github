@@ -11,8 +11,8 @@
     --paper: #f7f8f5;
     --ink: #17231f;
     --muted: #68736d;
-    --green: #286b55;
-    --mint: #dcebe3;
+    --green: oklch(0.46 0.22 266);
+    --mint: oklch(0.93 0.045 266);
     --line: rgba(23,35,31,.12);
     --night: #080b0a;
     --blood: #9d2525;
@@ -52,11 +52,11 @@
   .hero p { color:var(--muted); font-size:clamp(15px, 1.5vw, 18px); line-height:1.7; max-width:510px; margin:0 auto 32px; }
   .primary {
     display:inline-flex; gap:12px; align-items:center; background:var(--green); color:white;
-    border-radius:999px; padding:15px 22px; font-size:13px; font-weight:700; box-shadow:0 12px 30px #286b5526;
+    border-radius:999px; padding:15px 22px; font-size:13px; font-weight:700; box-shadow:0 12px 30px oklch(0.46 0.22 266)26;
   }
   .hero-note { position:absolute; bottom:30px; color:#9aa39d; font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
-  .orb { position:absolute; border:1px solid #286b5518; border-radius:50%; width:420px; height:420px; left:-220px; top:250px; }
-  .orb:after { content:""; position:absolute; inset:45px; border:1px solid #286b5518; border-radius:50%; }
+  .orb { position:absolute; border:1px solid oklch(0.46 0.22 266)18; border-radius:50%; width:420px; height:420px; left:-220px; top:250px; }
+  .orb:after { content:""; position:absolute; inset:45px; border:1px solid oklch(0.46 0.22 266)18; border-radius:50%; }
   .section { padding:120px clamp(24px, 10vw, 150px); }
   .section-head { max-width:700px; margin-bottom:60px; }
   .section h2 { font-size:clamp(38px, 5vw, 66px); line-height:1; letter-spacing:-.07em; font-weight:620; margin:18px 0; }
@@ -150,7 +150,7 @@
   body.deep .quote-band, body.deep .pricing { background:#101613; }
   body.deep .card, body.deep .price-card { background:#151c18; border-color:#ffffff18; }
   body.deep .card p, body.deep .price-card p, body.deep .price-card li { color:#849087; }
-  body.deep .card-icon { background:#26362c; color:#a5b8a8; }
+  body.deep .card-icon { background:oklch(0.28 0.07 266); color:oklch(0.78 0.06 266); }
   body.deep footer { border-color:#ffffff18; }
   body.deep .stat span, body.deep .quote-by { color:#849087; }
   body.deep .portrait { filter:grayscale(1) brightness(.45); }
@@ -162,7 +162,7 @@
   body.deep .hero { background:radial-gradient(ellipse at 50% 72%,#18231d 0,transparent 48%),#080b0a; }
   body.deep .hero p, body.deep .hero-note { color:#68736b; }
   body.deep .hero .eyebrow { color:#8ca18f; }
-  body.deep .hero .primary { background:#34483a; }
+  body.deep .hero .primary { background:oklch(0.32 0.12 266); }
   body.deep .section { background:#0c110e; }
   body.deep .quote-band { background:#121915; }
   body.deep .stats strong { color:#c3cbc4; }
@@ -195,7 +195,7 @@
 <header class="topbar">
   <a class="brand" href="#top" aria-label="Yuurei Labs home"><span class="brand-mark"></span> yuurei labs</a>
   <nav aria-label="Main navigation">
-    <a href="#approach">Platform</a><a href="#stories">Use cases</a><a href="#plans">Pricing</a>
+    <a href="#approach">Platform</a><a href="#ecosystem">Solutions</a><a href="#stories">Use cases</a><a href="#plans">Pricing</a>
     <a class="nav-cta" href="#plans">View platform</a>
   </nav>
 </header>
@@ -259,6 +259,109 @@
       <ul><li>Unified device management</li><li>Live telemetry and dashboards</li><li>Rules, alerts, and automations</li><li>Secure API integrations</li></ul>
       <a class="primary" href="#begin">Get started <span>→</span></a>
     </div>
+  </section>
+
+
+  <section class="section normal-only" id="ecosystem">
+    <div class="section-head">
+      <div class="eyebrow">One connected ecosystem</div>
+      <h2>From tiny signals<br>to big picture.</h2>
+      <p class="section-intro">Yuurei Labs gives every layer of your infrastructure a place to speak. Bring devices, data, and decisions into one coherent view.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><div class="card-icon">⌘</div><h3>Device identity</h3><p>Provision devices, assign ownership, and keep a reliable record of every node in your fleet.</p></article>
+      <article class="card"><div class="card-icon">⌁</div><h3>Live data streams</h3><p>Receive telemetry as it happens, normalize payloads, and route events where they need to go.</p></article>
+      <article class="card"><div class="card-icon">◈</div><h3>Edge to cloud</h3><p>Keep local systems responsive while maintaining a single view across your deployments.</p></article>
+    </div>
+  </section>
+
+  <section class="quote-band normal-only">
+    <blockquote>“Complex infrastructure should feel simple. Every signal should have a place.”</blockquote>
+    <small>THE YUUREI LABS PRINCIPLE</small>
+  </section>
+
+  <section class="section normal-only">
+    <div class="section-head">
+      <div class="eyebrow">Designed for operators</div>
+      <h2>Know what’s happening.<br>Before it happens.</h2>
+      <p class="section-intro">A clear operational picture helps teams spot anomalies, resolve issues, and spend less time chasing disconnected systems.</p>
+    </div>
+    <div class="testimonial">
+      <div class="portrait" role="img" aria-label="Abstract illustration of a connected operations environment"><span class="face-shadow"></span></div>
+      <div>
+        <p class="quote">“We went from checking five separate dashboards to understanding our entire site at a glance.”</p>
+        <div class="quote-by">OPERATIONS LEAD &nbsp; · &nbsp; INDUSTRIAL SYSTEMS</div>
+        <div class="stats">
+          <div class="stat"><strong>1 view</strong><span>for your whole fleet</span></div>
+          <div class="stat"><strong>24/7</strong><span>operational visibility</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section normal-only" style="background:#f0f3ef">
+    <div class="section-head">
+      <div class="eyebrow">A platform that scales</div>
+      <h2>Start with one.<br>Grow without limits.</h2>
+      <p class="section-intro">From a handful of prototypes to a distributed fleet, the same foundations keep your devices manageable.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><div class="card-icon">01</div><h3>Connect</h3><p>Register gateways and devices with consistent identity, credentials, and metadata.</p></article>
+      <article class="card"><div class="card-icon">02</div><h3>Observe</h3><p>Explore telemetry, device health, historical trends, and events in context.</p></article>
+      <article class="card"><div class="card-icon">03</div><h3>Orchestrate</h3><p>Build rules and automations that turn observations into useful actions.</p></article>
+    </div>
+  </section>
+
+  <section class="section normal-only">
+    <div class="section-head">
+      <div class="eyebrow">Security by design</div>
+      <h2>Every connection<br>has a reason.</h2>
+      <p class="section-intro">Identity, permissions, and auditability are part of the platform — not something added after deployment.</p>
+    </div>
+    <div class="cards">
+      <article class="card"><div class="card-icon">⌑</div><h3>Scoped access</h3><p>Keep teams, services, and devices operating within the boundaries they need.</p></article>
+      <article class="card"><div class="card-icon">◎</div><h3>Traceable events</h3><p>Understand when a device connected, what it reported, and which automation responded.</p></article>
+      <article class="card"><div class="card-icon">⛨</div><h3>Secure by default</h3><p>Build a consistent foundation for credentials, encrypted transport, and lifecycle management.</p></article>
+    </div>
+  </section>
+
+  <section class="quote-band normal-only">
+    <blockquote>“The network is only as trustworthy as the things we allow into it.”</blockquote>
+    <small>SECURITY &amp; TRUST — YUUREI LABS</small>
+  </section>
+
+  <section class="section normal-only">
+    <div class="section-head">
+      <div class="eyebrow">Built for the edge</div>
+      <h2>Closer to the signal.<br>Closer to the answer.</h2>
+      <p class="section-intro">Not every decision should wait for the cloud. Yuurei Labs is designed for systems that need to react where the data is created.</p>
+    </div>
+    <div class="photo-grid">
+      <div class="fake-photo"><span class="face-shadow"></span></div>
+      <div class="fake-photo"><span class="face-shadow"></span></div>
+    </div>
+    <p class="section-intro" style="margin:24px auto 0;text-align:center">Gateways. Sensors. Controllers. A single operational language.</p>
+  </section>
+
+  <section class="section normal-only" style="background:#f0f3ef">
+    <div class="section-head">
+      <div class="eyebrow">Frequently asked questions</div>
+      <h2>Good questions.<br>Clear answers.</h2>
+    </div>
+    <div style="max-width:760px;margin:auto">
+      <div class="card" style="min-height:0;margin-bottom:12px"><h3>Can I connect devices I already own?</h3><p>Yuurei Labs is designed to bring different device types and protocols into one manageable platform.</p></div>
+      <div class="card" style="min-height:0;margin-bottom:12px"><h3>Can I monitor devices remotely?</h3><p>Yes. View device status, telemetry, and events from a unified operational dashboard.</p></div>
+      <div class="card" style="min-height:0;margin-bottom:12px"><h3>Can I automate device behavior?</h3><p>Build event-driven rules that connect device signals to actions and workflows.</p></div>
+    </div>
+  </section>
+
+
+  <section class="crack crack-section" style="background:#e7e9e4">
+    <div class="eyebrow">A small system observation</div>
+    <h2>Your network looks unusually quiet.</h2>
+    <p>We usually see more activity around this time.</p>
+    <p class="duplicate">There is no need to check the device list.</p>
+    <p class="small-print">LAST NEW DEVICE DISCOVERED: JUST NOW</p>
   </section>
 
   <section class="crack crack-section">
